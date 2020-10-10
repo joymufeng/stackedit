@@ -14,11 +14,11 @@ import workspaceSvc from './workspaceSvc';
 import constants from '../data/constants';
 import badgeSvc from './badgeSvc';
 
-const minAutoSyncEvery = 60 * 1000; // 60 sec
+// const minAutoSyncEvery = 60 * 1000; // 60 sec
 const inactivityThreshold = 3 * 1000; // 3 sec
 const restartSyncAfter = 30 * 1000; // 30 sec
 const restartContentSyncAfter = 1000; // Enough to detect an authorize pop up
-const checkSponsorshipAfter = (5 * 60 * 1000) + (30 * 1000); // tokenExpirationMargin + 30 sec
+// const checkSponsorshipAfter = (5 * 60 * 1000) + (30 * 1000); // tokenExpirationMargin + 30 sec
 const maxContentHistory = 20;
 
 const LAST_SEEN = 0;
@@ -63,13 +63,13 @@ const isSyncWindow = () => {
 /**
  * Return true if auto sync can start, ie if lastSyncActivity is old enough.
  */
-const isAutoSyncReady = () => {
+/* const isAutoSyncReady = () => {
   let { autoSyncEvery } = store.getters['data/computedSettings'];
   if (autoSyncEvery < minAutoSyncEvery) {
     autoSyncEvery = minAutoSyncEvery;
   }
   return Date.now() > autoSyncEvery + getLastStoredSyncActivity();
-};
+}; */
 
 /**
  * Update the lastSyncActivity, assuming we have the lock.
@@ -875,31 +875,31 @@ const requestSync = (addTriggerSyncBadge = false) => {
 export default {
   async init() {
     // Load workspaces and tokens from localStorage
-    localDbSvc.syncLocalStorage();
+    // localDbSvc.syncLocalStorage();
 
     // Try to find a suitable action provider
-    actionProvider = providerRegistry.providersById[utils.queryParams.providerId];
+    /* actionProvider = providerRegistry.providersById[utils.queryParams.providerId];
     if (actionProvider && actionProvider.initAction) {
       await actionProvider.initAction();
-    }
+    } */
 
     // Try to find a suitable workspace sync provider
-    workspaceProvider = providerRegistry.providersById[utils.queryParams.providerId];
+    /* workspaceProvider = providerRegistry.providersById[utils.queryParams.providerId];
     if (!workspaceProvider || !workspaceProvider.initWorkspace) {
       workspaceProvider = googleDriveAppDataProvider;
-    }
-    const workspace = await workspaceProvider.initWorkspace();
+    } */
+    // const workspace = await workspaceProvider.initWorkspace();
     // Fix the URL hash
-    const { paymentSuccess } = utils.queryParams;
-    utils.setQueryParams(workspaceProvider.getWorkspaceParams(workspace));
+    // const { paymentSuccess } = utils.queryParams;
+    // utils.setQueryParams(workspaceProvider.getWorkspaceParams(workspace));
 
-    store.dispatch('workspace/setCurrentWorkspaceId', workspace.id);
-    await localDbSvc.init();
+    // store.dispatch('workspace/setCurrentWorkspaceId', workspace.id);
+    // await localDbSvc.init();
 
     // Enable sponsorship
-    if (paymentSuccess) {
+    /*  if (paymentSuccess) {
       store.dispatch('modal/open', 'paymentSuccess')
-        .catch(() => { /* Cancel */ });
+        .catch(() => {  Cancel  });
       const sponsorToken = store.getters['workspace/sponsorToken'];
       // Force check sponsorship after a few seconds
       const currentDate = Date.now();
@@ -909,20 +909,20 @@ export default {
           expiresOn: currentDate - checkSponsorshipAfter,
         });
       }
-    }
+    } */
 
     // Try to find a suitable action provider
-    actionProvider = providerRegistry.providersById[utils.queryParams.providerId] || actionProvider;
+    /* actionProvider = providerRegistry.providersById[utils.queryParams.providerId] || actionProvider;
     if (actionProvider && actionProvider.performAction) {
       const newSyncLocation = await actionProvider.performAction();
       if (newSyncLocation) {
         this.createSyncLocation(newSyncLocation);
       }
-    }
+    } */
 
     await tempFileSvc.init();
 
-    if (!store.state.light) {
+    /* if (!store.state.light) {
       // Sync periodically
       utils.setInterval(() => {
         if (isSyncPossible()
@@ -941,7 +941,7 @@ export default {
           localDbSvc.unloadContents();
         }
       }, 5000);
-    }
+    } */
   },
   isSyncPossible,
   requestSync,

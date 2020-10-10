@@ -13,7 +13,7 @@ if (!indexedDB) {
   throw new Error('Your browser is not supported. Please upgrade to the latest version.');
 }
 
-OfflinePluginRuntime.install({
+/* OfflinePluginRuntime.install({
   onUpdateReady: () => {
     // Tells to new SW to take control immediately
     OfflinePluginRuntime.applyUpdate();
@@ -47,7 +47,7 @@ if (!localStorage.installPrompted) {
     }
     localStorage.installPrompted = true;
   });
-}
+} */
 
 Vue.config.productionTip = false;
 

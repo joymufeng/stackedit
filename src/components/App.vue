@@ -1,10 +1,11 @@
 <template>
   <div class="app" :class="classes" @keydown.esc="close">
-    <splash-screen v-if="!ready"></splash-screen>
-    <layout v-else></layout>
+    <!-- <splash-screen v-if="!ready"></splash-screen> -->
+    <!-- <layout v-else></layout> -->
+    <layout></layout>
     <modal></modal>
-    <notification></notification>
-    <context-menu></context-menu>
+    <!-- <notification></notification> -->
+    <!-- <context-menu></context-menu> -->
   </div>
 </template>
 
@@ -53,7 +54,7 @@ export default {
   async created() {
     try {
       await syncSvc.init();
-      await networkSvc.init();
+      // await networkSvc.init();
       this.ready = true;
       tempFileSvc.setReady();
     } catch (err) {

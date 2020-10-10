@@ -29,9 +29,9 @@ export default {
     }
   },
   async init() {
-    if (!isLight) {
+    /* if (!isLight) {
       return;
-    }
+    } */
     store.commit('setLight', true);
 
     const file = await workspaceSvc.createFile({

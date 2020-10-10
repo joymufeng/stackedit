@@ -56,7 +56,7 @@ export default {
     window.addEventListener('focus', setLastFocus);
 
     // Check that browser is online periodically
-    const checkOffline = async () => {
+    /* const checkOffline = async () => {
       const isBrowserOffline = window.navigator.onLine === false;
       if (!isBrowserOffline
         && store.state.lastOfflineCheck + networkTimeout + 5000 < Date.now()
@@ -95,16 +95,16 @@ export default {
           this.getServerConf();
         }
       }
-    };
+    }; */
 
-    utils.setInterval(checkOffline, 1000);
+    /* utils.setInterval(checkOffline, 1000);
     window.addEventListener('online', () => {
       isConnectionDown = false;
       checkOffline();
     });
     window.addEventListener('offline', checkOffline);
     await checkOffline();
-    this.getServerConf();
+    this.getServerConf();*/
   },
   async getServerConf() {
     if (!store.state.offline && !isConfLoading && !isConfLoaded) {
