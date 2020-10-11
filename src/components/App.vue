@@ -4,7 +4,7 @@
     <!-- <layout v-else></layout> -->
     <layout></layout>
     <modal></modal>
-    <!-- <notification></notification> -->
+    <notification></notification>
     <!-- <context-menu></context-menu> -->
   </div>
 </template>

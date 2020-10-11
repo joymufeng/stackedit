@@ -68,6 +68,22 @@ export default {
     store.dispatch('data/setLastCreated', lastCreated);
     store.commit('file/setCurrentId', file.id);
 
+    const $messageHandler = (event) => {
+      console.log('StackEdit - messageHandler' + new Date().getTime(), event);
+      console.log('origin', event.origin);
+      switch (event.data.type) {
+        case 'text':
+          // StackEdit has its own one close button
+          console.log('receive set text  ....');
+          break;
+        default:
+      }
+    };
+
+    window.addEventListener('message', $messageHandler);
+
+
+
     const onChange = cledit.Utils.debounce(() => {
       const currentFile = store.getters['file/current'];
       if (currentFile.id !== file.id) {
@@ -86,6 +102,7 @@ export default {
               properties,
               yamlProperties: content.properties,
               html: editorSvc.previewCtx.html,
+              previewHtml: editorSvc.previewElt.innerHTML,
             },
           },
         }, origin);
